@@ -15,8 +15,7 @@ class cs162::bochs($home_directory, $owner, $group) {
         cwd     => $home_directory,
         user    => $owner,
         command => $install_script,
-        # TODO fix
-        # creates => $install_directory,
+        creates => "/usr/local/bin/bochs",
     }
 
 }
