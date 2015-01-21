@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set -e
 set -x
 
 VERSION=2.6.7

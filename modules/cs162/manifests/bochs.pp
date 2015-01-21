@@ -3,6 +3,8 @@ class cs162::bochs($home_directory, $owner, $group) {
     $install_script = "$home_directory/.bochs.install.sh"
     $install_directory = "$home_directory/bochs/"
 
+    Package<| |>
+    ->
     file { $install_script:
         ensure  => present,
         owner   => $owner,
