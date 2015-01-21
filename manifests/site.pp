@@ -26,9 +26,11 @@ node default {
     # Install some required packages
 
     package {[
+            "ack-grep",
             "binutils",
             "cgdb",
             "cmake",
+            "exuberant-ctags",
             "g++",
             "gcc",
             "gdb",
@@ -37,6 +39,7 @@ node default {
             "libncurses5",
             "libncurses5-dev",
             "qemu",
+            "silversearcher-ag",
             "tmux",
         ]:
         ensure => installed,

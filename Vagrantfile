@@ -9,6 +9,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.ssh.forward_x11 = true
   config.vm.hostname = "development.cs162.eecs.berkeley.edu"
 
+  config.vm.synced_folder "~/", "/vagrant"
+
   config.vm.provider "virtualbox" do |vb|
     vb.gui = false
     vb.customize ["modifyvm", :id, "--memory", "1024"]
