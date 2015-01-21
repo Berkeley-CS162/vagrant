@@ -27,7 +27,6 @@ node default {
 
     package {[
             "binutils",
-            "bochs",
             "cgdb",
             "cmake",
             "g++",
@@ -42,6 +41,8 @@ node default {
         ]:
         ensure => installed,
     }
+
+    # Clone the skeleton files
 
     Vcsrepo {
         provider => git,
@@ -66,6 +67,14 @@ node default {
             ensure => present,
             source => "git://github.com/Berkeley-CS162/ta.git",
             remote => staff;
+    }
+
+    # Set up some project support stuff
+
+    class { "cs162::bochs":
+        home_directory => $home,
+        owner          => vagrant,
+        group          => vagrant,
     }
 
     file {
