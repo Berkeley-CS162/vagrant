@@ -51,8 +51,7 @@ you are already familiar with the command-line switches of useradd).
 $ adduser vagrant
 ```
 
-The recommended password is `vagrant` (since this is the password that Vagrant
-uses), but you can choose anything you want. The personal information section
+Make sure your password isn't easily guessable! The personal information section
 doesn't matter.
 
 #### 4. Give password-less sudo access to the vagrant user (not optional)
