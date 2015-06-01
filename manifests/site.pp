@@ -41,6 +41,7 @@ node default {
             "qemu",
             "silversearcher-ag",
             "tmux",
+            "autoconf",
         ]:
         ensure => installed,
     }
