@@ -42,6 +42,7 @@ node default {
             "silversearcher-ag",
             "tmux",
             "autoconf",
+            "wget",
         ]:
         ensure => installed,
     }
