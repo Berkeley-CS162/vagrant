@@ -43,6 +43,7 @@ node default {
             "tmux",
             "autoconf",
             "wget",
+            "python2.7",
         ]:
         ensure => installed,
     }
