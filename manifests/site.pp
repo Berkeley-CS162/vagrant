@@ -44,6 +44,8 @@ node default {
             "autoconf",
             "wget",
             "python2.7",
+            "libjson-c-dev",
+            "libfuse-dev",
         ]:
         ensure => installed,
     }
