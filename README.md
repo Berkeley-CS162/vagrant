@@ -109,5 +109,9 @@ and we just put a puppet provisioner on top of it. To build:
 
     vagrant box add ubuntu/trusty64
     cd dist/
+    (Replace the MAC address in Vagrantfile with real MAC address)
     ./make.sh
+
+You can find the real MAC address to use in the Vagrantfile in the
+`~/.vagrant.d/boxes/ubuntu-..../` directory.
 
