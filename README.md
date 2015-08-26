@@ -11,7 +11,7 @@ Vagrant VM for CS162
    our Puppet provisioner.
 
 This provisioner is the only modification we've made to the base box, which
-means that you **should** be able to run it on any Ubuntu 14.04 machine.
+means that you **should** be able to run it on any x86 Ubuntu 14.04 machine.
 
 ### Running on your own infrastructure
 
@@ -22,7 +22,8 @@ manually.
 #### 1. Set up a Ubuntu 14.04 VM
 
 You can set this up on AWS, DigitalOcean, your home server, etc. Anything that
-runs this operating system is okay. Both 64-bit and 32-bit versions are okay.
+runs this operating system is okay. Both 64-bit and 32-bit versions are okay,
+but the underlying system must be x86, not ARM.
 
 #### 2. Log in to your VM as root, and download the source code for this project.
 
@@ -96,10 +97,17 @@ $ su vagrant
 You're done! You can use this box just the same as you would a vagrant box. Just
 remember to log in with the vagrant user when you're developing code.
 
-Instead of shared folders, you'll need to scp your code from your laptop to the
-VM, which is a bit of a pain. To make this easier, check out rsync (it's like
-scp with more features) and fswatch (OS X) or inotifytools (Ubuntu). Windows
-WinSCP should have an auto-sync feature too.
+### SMB Server
+
+There is a Samba server that you can connect to with any SMB client. You can
+log in with `vagrant` as both the username and the password. You can also use
+the vboxsf mount on `/vagrant` that is connected to the host's home folder. Or,
+you can set up rsync or sshfs. You can either add your own SSH key to the
+vagrant user's authorized keys (don't replace the entire file, because Vagrant
+needs to be able to log in as well to manage the VM), or you can use SSH's
+IdentityFile option to use the same private key that Vagrant does. The IP
+address of the VM should be `192.168.162.162` always, unless another interface
+on the host is using that subnet.
 
 ### Building the distributable box
 
