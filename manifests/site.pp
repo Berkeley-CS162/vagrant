@@ -85,6 +85,8 @@ node default {
         group          => vagrant,
     }
 
+    include cs162::samba
+
     file {
         "/usr/bin/qemu":
             ensure => "/usr/bin/qemu-system-x86_64";
