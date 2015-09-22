@@ -9,7 +9,7 @@ class cs162::bochs($home_directory, $owner, $group) {
         ensure  => present,
         owner   => $owner,
         group   => $group,
-        mode    => 0755,
+        mode    => "0755",
         content => template("cs162/bochs/install.sh"),
     }
     ->
