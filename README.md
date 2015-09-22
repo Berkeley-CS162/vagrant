@@ -80,7 +80,7 @@ Make sure you are in the project root, and then just run the provisioner.
 
 ```shell
 $ cd path/to/project/vagrant/
-$ puppet apply manifests/site.pp --modulepath modules/
+$ sudo puppet apply manifests/site.pp --modulepath modules/
 ```
 
 #### 7. Log in as the vagrant user (not optional)

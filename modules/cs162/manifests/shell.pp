@@ -13,9 +13,10 @@ class cs162::shell($home_directory, $owner, $group) {
             ensure => present,
             content => template("cs162/shell/cs162.bashrc");
         "$home_directory/.bin":
-            ensure  => directory,
-            source  => "puppet:///modules/cs162/shell/bin",
-            recurse => true;
+            ensure             => directory,
+            source             => "puppet:///modules/cs162/shell/bin",
+            source_permissions => use,
+            recurse            => true;
     }
 
 }
