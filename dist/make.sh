@@ -32,4 +32,4 @@ if [[ ! -e box-disk1.vmdk ]]; then
     ln -s $BASE_BOX_VERSION/virtualbox/box-disk1.vmdk box-disk1.vmdk
 fi
 
-tar czvf spring2017.box -h manifests modules include box-disk1.vmdk box.ovf Vagrantfile
+tar czvf fall2017.box -h manifests modules include box-disk1.vmdk box.ovf Vagrantfile
