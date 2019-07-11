@@ -43,7 +43,7 @@ node default {
             "tmux",
             "autoconf",
             "wget",
-            "python2.7",
+            "python3",
             "libjson-c-dev",
             "libfuse-dev",
         ]:

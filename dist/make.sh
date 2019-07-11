@@ -3,10 +3,10 @@
 set -e
 set -x
 
-BASE_BOX_ROOT=~/.vagrant.d/boxes/ubuntu-VAGRANTSLASH-trusty64
+BASE_BOX_ROOT=~/.vagrant.d/boxes/ubuntu-VAGRANTSLASH-bionic64
 
 if [[ ! -d $BASE_BOX_ROOT ]]; then
-    echo "You need to do 'vagrant box add ubuntu/trusty64' first!" >&2
+    echo "You need to do 'vagrant box add ubuntu/bionic64' first!" >&2
     exit 1
 fi
 
@@ -32,4 +32,4 @@ if [[ ! -e box-disk1.vmdk ]]; then
     ln -s $BASE_BOX_VERSION/virtualbox/box-disk1.vmdk box-disk1.vmdk
 fi
 
-tar czvf summer2019.box -h manifests modules include box-disk1.vmdk box.ovf Vagrantfile
+tar czvf fall2019.box -h manifests modules include box-disk1.vmdk box.ovf Vagrantfile
