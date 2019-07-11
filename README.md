@@ -5,13 +5,13 @@ Vagrant VM for CS162
 
 1. Download the source code and run `vagrant up` inside the root of the project
    directory.
-1. The Vagrantfile specifies `ubuntu/trusty64` as the base box for this VM, so
+1. The Vagrantfile specifies `ubuntu/bionic64` as the base box for this VM, so
    Vagrant will download that box from the Internet, which may take some time.
 1. Once the download is complete, Vagrant will import the VM appliance and run
    our Puppet provisioner.
 
 This provisioner is the only modification we've made to the base box, which
-means that you **should** be able to run it on any x86 Ubuntu 14.04 machine.
+means that you **should** be able to run it on any x86 Ubuntu 18.04 machine.
 
 ### Running on your own infrastructure
 
@@ -19,7 +19,7 @@ Vagrant+Virtualbox is the recommended way to run the VM. If you don't have VT-x,
 or you would prefer to use your own infrastructure, you can run the provisioner
 manually.
 
-#### 1. Set up a Ubuntu 14.04 VM
+#### 1. Set up a Ubuntu 18.04 VM
 
 You can set this up on AWS, DigitalOcean, your home server, etc. Anything that
 runs this operating system is okay. Both 64-bit and 32-bit versions are okay,
@@ -112,14 +112,13 @@ on the host is using that subnet.
 ### Building the distributable box
 
 The `dist/` directory has components to build the final box file. I'm trying a
-thing where the box image and components are all from the ubuntu/trusty64 box,
+thing where the box image and components are all from the ubuntu/bionic64 box,
 and we just put a puppet provisioner on top of it. To build:
 
-    vagrant box add ubuntu/trusty64
+    vagrant box add ubuntu/bionic64
     cd dist/
     (Replace the MAC address in Vagrantfile with real MAC address)
     ./make.sh
 
 You can find the real MAC address to use in the Vagrantfile in the
 `~/.vagrant.d/boxes/ubuntu-..../` directory.
-
