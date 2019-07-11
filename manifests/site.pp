@@ -16,7 +16,9 @@ node default {
     # Configure apt
 
     class { "apt":
-        always_apt_update => true,
+        update => {
+            frequency => 'daily',
+        },
     }
 
     include apt::update

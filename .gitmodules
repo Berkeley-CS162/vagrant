@@ -1,0 +1,3 @@
+[submodule "modules/apt"]
+	path = modules/apt
+	url = https://github.com/puppetlabs/puppetlabs-apt
