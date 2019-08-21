@@ -82,7 +82,7 @@ node default {
 
     # Set up some project support stuff
 
-    class { ["cs162::bochs", "cs162::shell"]:
+    class { ["cs162::bochs", "cs162::golang", "cs162::shell"]:
         home_directory => $home,
         owner          => vagrant,
         group          => vagrant,
