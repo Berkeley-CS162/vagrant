@@ -48,6 +48,7 @@ node default {
             "python3",
             "libjson-c-dev",
             "libfuse-dev",
+            "sudo",
         ]:
         ensure => installed,
     }
