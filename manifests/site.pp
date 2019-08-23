@@ -16,7 +16,9 @@ node default {
     # Configure apt
 
     class { "apt":
-        always_apt_update => true,
+        update => {
+            frequency => 'daily',
+        },
     }
 
     include apt::update
@@ -43,9 +45,10 @@ node default {
             "tmux",
             "autoconf",
             "wget",
-            "python2.7",
+            "python3",
             "libjson-c-dev",
             "libfuse-dev",
+            "sudo",
         ]:
         ensure => installed,
     }
@@ -79,7 +82,7 @@ node default {
 
     # Set up some project support stuff
 
-    class { ["cs162::bochs", "cs162::shell"]:
+    class { ["cs162::bochs", "cs162::golang", "cs162::shell"]:
         home_directory => $home,
         owner          => vagrant,
         group          => vagrant,

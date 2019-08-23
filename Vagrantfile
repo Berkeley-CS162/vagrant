@@ -1,6 +1,6 @@
 Vagrant.configure("2") do |config|
 
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "ubuntu/bionic64"
 
   config.vm.network "private_network", ip: "192.168.162.162"
   config.ssh.forward_agent = true
@@ -25,6 +25,10 @@ Vagrant.configure("2") do |config|
     puppet_root = nil
   end
 
+  # Install Puppet in the VM
+  config.vm.provision "shell", path: "#{puppet_root}/install_puppet.sh"
+
+  # Provision with Puppet
   unless puppet_root.nil?
     config.vm.provision "puppet" do |puppet|
       puppet.manifests_path = "#{puppet_root}/manifests"
