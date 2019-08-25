@@ -31,6 +31,7 @@ node default {
             "ack-grep",
             "binutils",
             "cgdb",
+            "clang",
             "cmake",
             "exuberant-ctags",
             "g++",
