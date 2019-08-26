@@ -14,8 +14,8 @@ BASE_BOX_VERSION=`ls -d1 $BASE_BOX_ROOT/[0-9]* | tail -1`
 
 echo "Detected base box version $BASE_BOX_VERSION"
 
-if [[ ! -f $BASE_BOX_VERSION/virtualbox/box-disk1.vmdk ]]; then
-    echo "Could not find box-disk1.vmdk from base box"
+if [[ ! -f $BASE_BOX_VERSION/virtualbox/ubuntu-bionic-18.04-cloudimg.vmdk ]]; then
+    echo "Could not find ubuntu-bionic-18.04-cloudimg.vmdk from base box"
     exit 1
 fi
 
@@ -28,8 +28,16 @@ if [[ ! -e box.ovf ]]; then
     ln -s $BASE_BOX_VERSION/virtualbox/box.ovf box.ovf
 fi
 
-if [[ ! -e box-disk1.vmdk ]]; then
-    ln -s $BASE_BOX_VERSION/virtualbox/box-disk1.vmdk box-disk1.vmdk
+if [[ ! -e ubuntu-bionic-18.04-cloudimg.vmdk ]]; then
+    ln -s $BASE_BOX_VERSION/virtualbox/ubuntu-bionic-18.04-cloudimg.vmdk ubuntu-bionic-18.04-cloudimg.vmdk
 fi
 
-tar czvf fall2019.box -h manifests modules include box-disk1.vmdk box.ovf Vagrantfile
+if [[ ! -e ubuntu-bionic-18.04-cloudimg-configdrive.vmdk ]]; then
+    ln -s $BASE_BOX_VERSION/virtualbox/ubuntu-bionic-18.04-cloudimg-configdrive.vmdk ubuntu-bionic-18.04-cloudimg-configdrive.vmdk
+fi
+
+if [[ ! -e ubuntu-bionic-18.04-cloudimg.mf ]]; then
+    ln -s $BASE_BOX_VERSION/virtualbox/ubuntu-bionic-18.04-cloudimg.mf ubuntu-bionic-18.04-cloudimg.mf
+fi
+
+tar czvf fall2019.box -h manifests modules include install_puppet.sh ubuntu-bionic-18.04-cloudimg.vmdk ubuntu-bionic-18.04-cloudimg-configdrive.vmdk box.ovf ubuntu-bionic-18.04-cloudimg.mf Vagrantfile

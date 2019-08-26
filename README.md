@@ -111,14 +111,18 @@ on the host is using that subnet.
 
 ### Building the distributable box
 
-The `dist/` directory has components to build the final box file. I'm trying a
+~~The `dist/` directory has components to build the final box file. I'm trying a
 thing where the box image and components are all from the ubuntu/bionic64 box,
-and we just put a puppet provisioner on top of it. To build:
+and we just put a puppet provisioner on top of it. To build~~
 
     vagrant box add ubuntu/bionic64
     cd dist/
     (Replace the MAC address in Vagrantfile with real MAC address)
     ./make.sh
 
-You can find the real MAC address to use in the Vagrantfile in the
-`~/.vagrant.d/boxes/ubuntu-..../` directory.
+~~You can find the real MAC address to use in the Vagrantfile in the
+`~/.vagrant.d/boxes/ubuntu-..../` directory.~~
+
+**Update Fall 2019:** This semester we upgraded the VM to Ubuntu 18.04. I couldn't find a way to make the scripts in `dist` work with this version of Ubuntu. Ubuntu starts to boot but then hangs at some point in the boot procedure. I've left my attempt at porting this to Ubuntu 18.04 in the `dist` directory, so the code there DOES NOT WORK. I didn't spend too much time on it, so it's possible the fix is trivial---maybe a future TA will find out where I went wrong and revive this.
+
+Until then, just build the vagrant box for distribution like normal. Run `vagrant up` to provision the VM locally, `vagrant halt` to stop the VM, and then `vagrant package --output fall2019.box` (choose the correct semester name). After the provisioning the VM (in between `vagrant up` and `vagrant halt`) you may choose to SSH in the VM and zero out the disk so that the packaged `.box` file is smaller after compression. That can be done by running `sudo dd if=/dev/zero of=/EMPTY bs=1M` and then `sudo rm -f /EMPTY` inside the VM. You may also choose to clear the history with `history -c` (and clear the `.bash_history` if it is present). Here's a pretty good tutorial: https://scotch.io/tutorials/how-to-create-a-vagrant-base-box-from-an-existing-one.
