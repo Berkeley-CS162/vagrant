@@ -77,7 +77,7 @@ node default {
             remote => staff;
         "$home/code/personal":
             ensure => present,
-            source => "https://github.com/Berkeley-CS162/ta.git",
+            source => "https://github.com/Berkeley-CS162/student0.git",
             remote => staff;
     }
 
