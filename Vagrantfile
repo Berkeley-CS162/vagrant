@@ -13,7 +13,7 @@ Vagrant.configure("2") do |config|
     vb.gui = false
     vb.customize ["modifyvm", :id, "--memory", "1024"]
     vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
-    vb.customize ["modifyvm", :id, "--uartmode1", "disconnected"]
+    vb.customize ["modifyvm", :id, "--uartmode1", "file", "console.log"]
   end
 
   if File.exist?(File.expand_path("../modules", __FILE__))
