@@ -17,13 +17,13 @@ Vagrant.configure("2") do |config|
     # This line is needed because the ubuntu/bionic64 Vagrantfile sets the
     # file to one hardcoded based on the directory where "vagrant up" is
     # originally run, preventing distribution. Simply using "--uartmode1
-    # disconnectied" isn't an option because on some versions of VirtualBox and
-    # Mac OS X (specifically VirtualBox 6.0) it causes boot to run 100x to
-    # 1000x slower and time out. See
-    # https://github.com/hashicorp/vagrant/issues/10578. The fix for now is to
-    # just redirect it to a local file. using bento/ubuntu-18.04 instead of
-    # ubuntu/bionic64 might be another option, according to that GitHub issue.
-    vb.customize ["modifyvm", :id, "--uartmode1", "file", "console.log"]
+    # disconnected" causes the VM to boot 100x to 1000x more slowly on some
+    # versions of VirtualBox (e.g., 6.0.2), causing vagrant to time out. See
+    # https://github.com/hashicorp/vagrant/issues/10578.
+    # The fix for now is to require students to use a version of VirtualBox
+    # without this problem. Version 6.0.10, the latest verion of VirtualBox at
+    # the time of writing, appears not to have such problems.
+    vb.customize ["modifyvm", :id, "--uartmode1", "disconnected"]
   end
 
   if File.exist?(File.expand_path("../modules", __FILE__))
