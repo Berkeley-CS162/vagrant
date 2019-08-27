@@ -3,8 +3,8 @@ Vagrant VM for CS162
 
 ### Running on Vagrant
 
-1. Download the source code and run `vagrant up` inside the root of the project
-   directory.
+1. Download the source code (don't forget `--recursive` if you're using
+   `git clone`) and run `vagrant up` inside the root of the project directory.
 1. The Vagrantfile specifies `ubuntu/bionic64` as the base box for this VM, so
    Vagrant will download that box from the Internet, which may take some time.
 1. Once the download is complete, Vagrant will import the VM appliance and run
@@ -35,7 +35,7 @@ to install git first, so:
 
 ```shell
 $ apt-get install git
-$ git clone https://github.com/Berkeley-CS162/vagrant.git
+$ git clone --recursive https://github.com/Berkeley-CS162/vagrant.git
 ```
 
 #### 3. Add the vagrant user (even if you aren't using vagrant)
