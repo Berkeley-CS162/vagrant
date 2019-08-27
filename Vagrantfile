@@ -13,6 +13,13 @@ Vagrant.configure("2") do |config|
     vb.gui = false
     vb.customize ["modifyvm", :id, "--memory", "1024"]
     vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+
+    # This line is needed because the ubuntu/bionic64 Vagrantfile sets the
+    # file to one hardcoded based on the directory where "vagrant up" is
+    # originally run, preventing distribution. Simply disabling it isn't an
+    # option because on some version of VirtualBox and Mac OS X it causes
+    # boot to run 100x to 1000x slower and time out. So the fix for now is to
+    # just redirect it to a local file.
     vb.customize ["modifyvm", :id, "--uartmode1", "file", "console.log"]
   end
 
