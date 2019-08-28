@@ -36,11 +36,11 @@ Vagrant.configure("2") do |config|
     puppet_root = nil
   end
 
-  # Install Puppet in the VM
-  config.vm.provision "shell", path: "#{puppet_root}/install_puppet.sh"
-
-  # Provision with Puppet
   unless puppet_root.nil?
+    # Install Puppet in the VM
+    config.vm.provision "shell", path: "#{puppet_root}/install_puppet.sh"
+
+    # Provision with Puppet
     config.vm.provision "puppet" do |puppet|
       puppet.manifests_path = "#{puppet_root}/manifests"
       puppet.module_path    = "#{puppet_root}/modules"
