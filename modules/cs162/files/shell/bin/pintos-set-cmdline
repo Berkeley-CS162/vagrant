@@ -18,7 +18,7 @@ open ($handle, '+<', $disk) or die "$disk: open: $!\n";
 # Check that it's a partitioned disk with a Pintos loader.
 my ($buffer) = read_fully ($handle, $disk, 512);
 unpack ("x510 v", $buffer) == 0xaa55 or die "$disk: not a partitioned disk\n";
-$buffer =~ /Pintos/ or die "$disk: does not contain Pintos loader\n";
+$buffer =~ /PiLo/ or die "$disk: does not contain Pintos loader\n";
 
 # Write the command line.
 our ($LOADER_SIZE);
