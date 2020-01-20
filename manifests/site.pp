@@ -52,6 +52,9 @@ node default {
             "libjson-c-dev",
             "libfuse-dev",
             "sudo",
+	    "glibc-doc",
+	    "libx32gcc-4.8-dev",
+	    "libc6-dev-i386",
         ]:
           ensure => installed;
         [
