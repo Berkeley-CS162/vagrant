@@ -40,4 +40,4 @@ if [[ ! -e ubuntu-bionic-18.04-cloudimg.mf ]]; then
     ln -s $BASE_BOX_VERSION/virtualbox/ubuntu-bionic-18.04-cloudimg.mf ubuntu-bionic-18.04-cloudimg.mf
 fi
 
-tar czvf summer2020.box -h manifests modules include install_puppet.sh ubuntu-bionic-18.04-cloudimg.vmdk ubuntu-bionic-18.04-cloudimg-configdrive.vmdk box.ovf ubuntu-bionic-18.04-cloudimg.mf Vagrantfile
+tar czvf fall2020.box -h manifests modules include install_puppet.sh ubuntu-bionic-18.04-cloudimg.vmdk ubuntu-bionic-18.04-cloudimg-configdrive.vmdk box.ovf ubuntu-bionic-18.04-cloudimg.mf Vagrantfile
