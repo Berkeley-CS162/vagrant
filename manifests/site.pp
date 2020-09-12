@@ -32,6 +32,7 @@ node default {
             "binutils",
             "cgdb",
             "clang",
+            "clang-format",
             "cmake",
             "exuberant-ctags",
             "g++",
