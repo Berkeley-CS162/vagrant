@@ -46,6 +46,7 @@ node default {
             "qemu",
             "silversearcher-ag",
             "tmux",
+            "valgrind",
             "autoconf",
             "wget",
             "python3",
