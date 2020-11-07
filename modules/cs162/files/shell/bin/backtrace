@@ -1,6 +1,7 @@
 #! /usr/bin/perl -w
 
 use strict;
+use Cwd 'realpath';
 
 # Check command line.
 if (grep ($_ eq '-h' || $_ eq '--help', @ARGV)) {
@@ -94,13 +95,20 @@ for my $loc (@locs) {
 
     print $addr, ": ";
     if (defined ($loc->{BINARY})) {
-	my ($function) = $loc->{FUNCTION};
-	my ($line) = $loc->{LINE};
-	$line =~ s/^(\.\.\/)*//;
-	$line = "..." . substr ($line, -25) if length ($line) > 28;
-	print "$function ($line)";
+		my ($function) = $loc->{FUNCTION};
+		my ($line) = $loc->{LINE};
+		$line =~ s/^(\.\.\/)*//;
+		if (substr($line, 0, 1) eq "/") {
+			$line = realpath($line);
+			my ($offset) = index $line, "pintos/src/";
+			if ($offset != -1) {
+				$line = substr $line, $offset;
+			}
+			$line =~ s/ \(discriminator[^)]*\)//;
+		}
+		print "$function ($line)";
     } else {
-	print "(unknown)";
+		print "(unknown)";
     }
     print "\n";
 }
