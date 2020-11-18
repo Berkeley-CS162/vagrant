@@ -11,19 +11,15 @@ Vagrant.configure("2") do |config|
 
   config.vm.provider "virtualbox" do |vb|
     vb.gui = false
-    vb.customize ["modifyvm", :id, "--memory", "1024"]
+    # Workaround to get the grpcio package installed!
+    # Set it back to 1024 MB in Virtualbox before packaging
+  
+    vb.customize ["modifyvm", :id, "--memory", "2560"]
     vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
 
-    # This line is needed because the ubuntu/bionic64 Vagrantfile sets the
-    # file to one hardcoded based on the directory where "vagrant up" is
-    # originally run, preventing distribution. Simply using "--uartmode1
-    # disconnected" causes the VM to boot 100x to 1000x more slowly on some
-    # versions of VirtualBox (e.g., 6.0.2), causing vagrant to time out. See
-    # https://github.com/hashicorp/vagrant/issues/10578.
-    # The fix for now is to require students to use a version of VirtualBox
-    # without this problem. Version 6.0.10, the latest verion of VirtualBox at
-    # the time of writing, appears not to have such problems.
-    vb.customize ["modifyvm", :id, "--uartmode1", "disconnected"]
+    # Instead of running disconnected, noticed that setting the file to NULL
+    # avoids performance issues.
+    vb.customize ["modifyvm", :id, "--uartmode1", "file", File::NULL]
   end
 
   if File.exist?(File.expand_path("../modules", __FILE__))
