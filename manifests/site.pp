@@ -46,6 +46,7 @@ node default {
             "qemu",
             "silversearcher-ag",
             "tmux",
+            "vim",
             "valgrind",
             "autoconf",
             "wget",

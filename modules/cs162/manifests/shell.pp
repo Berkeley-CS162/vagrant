@@ -9,6 +9,9 @@ class cs162::shell($home_directory, $owner, $group) {
         "$home_directory/.bashrc":
             ensure => present,
             content => template("cs162/shell/bashrc");
+        "$home_directory/.vimrc":
+            ensure => present,
+            content => template("cs162/shell/vimrc");
         "$home_directory/.cs162.bashrc":
             ensure => present,
             content => template("cs162/shell/cs162.bashrc");
