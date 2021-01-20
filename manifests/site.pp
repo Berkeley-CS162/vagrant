@@ -46,6 +46,7 @@ node default {
             "qemu",
             "silversearcher-ag",
             "tmux",
+            "vim",
             "valgrind",
             "autoconf",
             "wget",
@@ -95,15 +96,26 @@ node default {
             ensure => present,
             source => "https://github.com/Berkeley-CS162/student0.git",
             remote => staff;
+        "$home/.fzf":
+            ensure => present,
+            source => "https://github.com/junegunn/fzf.git",
+            remote => "origin",
+            revision => "0.25.0";
     }
-
+    ->
     # Set up some project support stuff
-
     class { ["cs162::bochs", "cs162::golang", "cs162::shell"]:
         home_directory => $home,
         owner          => vagrant,
         group          => vagrant,
     }
+    ->
+    class { ["cs162::fzf_install"]:
+        home_directory => $home,
+        owner          => vagrant,
+        group          => vagrant,
+    }
+
 
     include cs162::samba
 
