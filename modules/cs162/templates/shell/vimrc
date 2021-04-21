@@ -31,6 +31,7 @@ set history=1000  " keep 1000 lines of command line history
 set ruler         " show the cursor position all the time
 set showcmd       " display incomplete commands
 set incsearch     " do incremental searching
+set autoread      " automatically reload a file if it is changed outside of vim
 
 
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
