@@ -1,0 +1,123 @@
+#!/usr/bin/env bash
+# Written by Kevin Svetlitski during Spring 2021
+set -o pipefail
+
+function fatal() {
+	local RED
+	local CLEAR
+	# Check if stderr is a terminal and supports colors
+	if [[ -t 2 ]] && tput colors >/dev/null 2>&1
+	then
+		# We use tput instead of raw ANSI escapes to more robustly handle
+		# the wide variety of terminal emulators that students may be using.
+		RED="$(tput setaf 1)"
+		CLEAR="$(tput sgr0)"
+	else
+		RED=''
+		CLEAR=''
+	fi
+	echo 1>&2 -e "${RED}Error: ${1}${CLEAR}"
+	exit 1
+}
+
+# Check that we're in the right directory
+current_directory=${PWD##*/}
+if [[ "$current_directory" != 'build' ]]
+then
+	if [[ -d build ]]
+	then
+		cd build || fatal "directory 'build' exists, but could not be accessed.\n\
+Try running 'make clean'"
+	else
+		fatal "directory 'build' was not found.\n\
+Make sure you have run 'make',\n\
+and that you are currently in one of the following directories:\n\
+    - userprog\n\
+    - threads\n\
+    - filesys\n\
+    - userprog/build\n\
+    - threads/build\n\
+    - filesys/build\n\
+"
+	fi
+fi
+
+# Verify that we received at most one command line argument,
+# which should be the name of a test to run
+if [[ "$#" -gt 1 ]]
+then
+	fatal "too many arguments.\n\
+Please provide the name of at most one test to run."
+fi
+
+test_name="${1:- }"
+# Allow me to explain this bizarre make magic. We use process substitution to
+# create an anonymous Makefile with one rule, which prints out any given make
+# variable via wildcard. So 'make ... print-TESTS' is invoking the rule which
+# will print out the contents of the make variable 'TESTS', which contains the
+# names of every test that will run during 'make check' (well except the
+# filesys persistence tests, which are run when their corresponding normal test
+# is run). The rest of the pipeline is simply cleaning up this output so that
+# it can be fed into fzf, allowing the user to conveniently select a test to
+# run if the argument they provided on the command line wasn't specific enough.
+# If the argument was specific enough to uniquely identify a test, then by the
+# '--select-1' flag that test will be automatically selected without requiring
+# further user input.
+test_path=$(make -f <(echo 'print-% : ; $(info $($*)) @true') \
+            -f Makefile print-TESTS | tr ' ' '\n' \
+            | fzf --query="$test_name" --select-1 \
+            --exit-0 --height=50% --keep-right \
+            --header="Please select a test to run" )
+if [[ "$?" -ne 0 ]] || [[ -z "$test_path" ]]
+then
+	fatal "either no test was selected, or no test with the provided name exists."
+fi
+
+# Remove the corresponding .output and .result files,
+# otherwise make will not run the test
+for extension in 'output' 'result'
+do
+	if [[ -e "${test_path}.${extension}" ]]
+	then
+		rm -fd "${test_path}.${extension}" || fatal "'${test_path}.${extension}' exists, but could not be deleted."
+	fi
+done
+
+if [[ -n "$PINTOS_DEBUG" ]]
+then # Debug the given test
+	if [[ "$PINTOS_DEBUG" -ne 2 ]]
+	then # Run the debugger in the same terminal that invoked this script
+		test_output=$(mktemp)
+		if make -n "${test_path}.output" 2>&1 | grep -q -- '--bochs'
+		then
+			# Bochs is very unhappy when stdin is closed (it will
+			# refuse to connect to the debugger), so we have to handle this as
+			# a special case.
+			make "${test_path}.output" > "$test_output" 2>&1 &
+		else
+			make "${test_path}.output" > "$test_output" 2>&1 <&- &
+		fi
+		pintos-gdb kernel.o
+		wait
+		cat "$test_output" && rm "$test_output"
+	else
+		# Don't start the debugger in this terminal, just run the test
+		# and have it wait for the debugger to connect. This option is
+		# useful in situations where you'd like to see what's being printed
+		# *while* you are debugging. Students should open a second terminal
+		# tab and run 'pintos-gdb kernel.o' there, just like they always had
+		# to before this script existed.
+
+		# For some strange reason, when the tests are running under the
+		# debugger, they refuse to die from a SIGINT. To get around this, we
+		# catch the SIGINT ourselves, and terminate the test with a SIGTERM
+		# (the default sent by pkill), which does indeed work.
+		trap 'pkill pintos; exit 1' SIGINT
+		make "${test_path}.output" &
+		wait
+	fi
+else
+	# Simply run the test and show whether or not it passed
+	# (hence '.result' instead of '.output' in this case)
+	make "${test_path}.result"
+fi
