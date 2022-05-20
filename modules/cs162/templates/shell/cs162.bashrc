@@ -1,4 +1,4 @@
-PATH=$PATH:$HOME/.bin
+PATH=$PATH:$HOME/.bin:$HOME/.cargo/bin
 
 black="\[\033[0m\]"
 red="\[\033[0;31m\]"

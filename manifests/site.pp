@@ -7,7 +7,8 @@ node default {
             '/usr/sbin',
             '/usr/bin',
             '/sbin',
-            '/bin'
+            '/bin',
+            '/home/vagrant/.cargo/bin',
         ]
     }
 
@@ -34,6 +35,7 @@ node default {
             "clang",
             "clang-format",
             "cmake",
+            "curl",
             "exuberant-ctags",
             "g++",
             "gcc",
@@ -56,7 +58,7 @@ node default {
             "libfuse-dev",
             "sudo",
             "glibc-doc",
-            "libx32gcc-4.8-dev",
+            "libx32gcc-10-dev",
             "libc6-dev-i386",
         ]:
           ensure => installed;
@@ -104,7 +106,7 @@ node default {
     }
     ->
     # Set up some project support stuff
-    class { ["cs162::bochs", "cs162::golang", "cs162::shell"]:
+    class { ["cs162::bochs", "cs162::golang", "cs162::shell", "cs162::rustlang"]:
         home_directory => $home,
         owner          => vagrant,
         group          => vagrant,
@@ -119,9 +121,9 @@ node default {
 
     include cs162::samba
 
-    file {
-        "/usr/bin/qemu":
-            ensure => "/usr/bin/qemu-system-x86_64";
+    file { "/usr/bin/qemu":
+        ensure => 'link',
+        target => "/usr/bin/qemu-system-x86_64",
     }
 
 }
