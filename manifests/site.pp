@@ -7,8 +7,7 @@ node default {
             '/usr/sbin',
             '/usr/bin',
             '/sbin',
-            '/bin',
-            '/home/vagrant/.cargo/bin',
+            '/bin'
         ]
     }
 
@@ -58,7 +57,7 @@ node default {
             "libfuse-dev",
             "sudo",
             "glibc-doc",
-            "libx32gcc-10-dev",
+            "libx32gcc-4.8-dev",
             "libc6-dev-i386",
         ]:
           ensure => installed;
