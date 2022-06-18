@@ -1,3 +1,4 @@
 /dist/*.box
 /dist/box.ovf
 /dist/box-disk1.vmdk
+.vagrant
