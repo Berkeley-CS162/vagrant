@@ -1,7 +1,6 @@
 FROM ubuntu:latest
 
-RUN apt -y update
-RUN apt -y install puppet
+RUN apt -y update && apt -y install puppet
 RUN useradd --create-home --home-dir /home/vagrant --user-group vagrant
 RUN echo vagrant:vagrant | chpasswd
 RUN echo "vagrant ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
