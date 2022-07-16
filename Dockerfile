@@ -29,3 +29,5 @@ RUN echo "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/hom
 FROM ubuntu:18.04
 
 COPY --from=src . .
+
+ENTRYPOINT ["bash", "-c"]
