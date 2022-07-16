@@ -1,4 +1,4 @@
-FROM ubuntu:latest as src
+FROM ubuntu:18.04 as src
 
 RUN useradd --create-home --home-dir /home/vagrant --user-group vagrant
 RUN echo vagrant:vagrant | chpasswd
@@ -9,7 +9,7 @@ COPY modules /puppet/modules
 COPY manifests /puppet/manifests
 
 
-FROM ubuntu:latest as puppet
+FROM ubuntu:18.04 as puppet
 
 COPY --from=src . .
 
@@ -19,6 +19,6 @@ RUN puppet apply /puppet/manifests/site.pp --modulepath /puppet/modules
 RUN echo "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/vagrant/.bin:/home/vagrant/.cargo/bin:/home/vagrant/.fzf/bin" >> /etc/environment
 
 
-FROM ubuntu:latest
+FROM ubuntu:18.04
 
 COPY --from=puppet . .
