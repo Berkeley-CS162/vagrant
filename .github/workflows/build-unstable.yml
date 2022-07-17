@@ -23,6 +23,6 @@ jobs:
         with:
           push: true
           platforms: linux/amd64
-          tags: avimehra/vagrant:unstable
+          tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:unstable
           cache-from: type=gha
           cache-to: type=gha,mode=max

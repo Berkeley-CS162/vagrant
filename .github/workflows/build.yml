@@ -24,6 +24,6 @@ jobs:
         with:
           push: true
           platforms: linux/amd64
-          tags: avimehra/vagrant:latest
+          tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
