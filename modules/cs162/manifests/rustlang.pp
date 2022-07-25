@@ -4,7 +4,7 @@ class cs162::rustlang($home_directory, $owner, $group) {
     exec { "install rustlang":
         cwd     => $home_directory,
         user    => $owner,
-        command => "curl -k https://sh.rustup.rs -sSf | sh -s -- -y 2>/dev/null",
+        command => "curl -k https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain 1.62.0 2>/dev/null",
         creates => "$home_directory/.cargo/bin",
     }
 
