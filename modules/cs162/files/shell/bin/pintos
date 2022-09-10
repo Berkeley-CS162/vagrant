@@ -20,6 +20,7 @@ our ($vga);			# VGA output: window, terminal, or none.
 our ($jitter);			# Seed for random timer interrupts, if set.
 our ($realtime);		# Synchronize timer interrupts with real time?
 our ($timeout);			# Maximum runtime in seconds, if set.
+our ($port) = 1234;		# Sets the port for the debugging server
 our ($kill_on_failure);		# Abort quickly on test failure?
 our (@puts);			# Files to copy into the VM.
 our (@gets);			# Files to copy out of the VM.
@@ -103,6 +104,7 @@ sub parse_command_line {
     $sim = "bochs" if !defined $sim;
     $debug = "none" if !defined $debug;
     $vga = exists ($ENV{DISPLAY}) ? "window" : "none" if !defined $vga;
+    $port = exists ($ENV{PINTOS_PORT}) ? $ENV{PINTOS_PORT} : $port;
 
     undef $timeout, print "warning: disabling timeout with --$debug\n"
       if defined ($timeout) && $debug ne 'none';
@@ -563,7 +565,7 @@ log: bochsout.txt
 panic: action=fatal
 user_shortcut: keys=ctrlaltdel
 EOF
-    print BOCHSRC "gdbstub: enabled=1\n" if $debug eq 'gdb';
+    print BOCHSRC "gdbstub: enabled=1, port=$port\n" if $debug eq 'gdb';
     print BOCHSRC "clock: sync=", $realtime ? 'realtime' : 'none',
       ", time0=0\n";
     print BOCHSRC "ata1: enabled=1, ioaddr1=0x170, ioaddr2=0x370, irq=15\n"
@@ -630,7 +632,7 @@ sub run_qemu {
     push (@cmd, '-nographic') if $vga eq 'none';
     push (@cmd, '-serial', 'stdio') if $serial && $vga ne 'none';
     push (@cmd, '-S') if $debug eq 'monitor';
-    push (@cmd, '-s', '-S') if $debug eq 'gdb';
+    push (@cmd, '-gdb', "tcp::${port}", '-S') if $debug eq 'gdb';
     push (@cmd, '-monitor', 'null') if $vga eq 'none' && $debug eq 'none';
     run_command (@cmd);
 }
