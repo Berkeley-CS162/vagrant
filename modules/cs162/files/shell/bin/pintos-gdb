@@ -12,7 +12,7 @@ fi
 
 # Run GDB.
 if test -f "$GDBMACROS"; then
-	exec $GDB -x "$GDBMACROS" "$@"
+	exec $GDB -ex "target remote localhost:$PORT" -x "$GDBMACROS" "$@"
 else
 	echo "*** $GDBMACROS does not exist ***"
 	echo "*** Pintos GDB macros will not be available ***"
