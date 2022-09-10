@@ -1,5 +1,8 @@
 #! /bin/sh
 
+# Auto Port
+export PINTOS_PORT=${PINTOS_PORT:-1234}
+
 # Path to GDB macros file.  Customize for your site.
 GDBMACROS=/home/vagrant/.bin/gdb-macros
 
@@ -12,7 +15,7 @@ fi
 
 # Run GDB.
 if test -f "$GDBMACROS"; then
-	exec $GDB -ex "target remote localhost:$PORT" -x "$GDBMACROS" "$@"
+	exec $GDB -ex "target remote localhost:$PINTOS_PORT" -x "$GDBMACROS" "$@"
 else
 	echo "*** $GDBMACROS does not exist ***"
 	echo "*** Pintos GDB macros will not be available ***"

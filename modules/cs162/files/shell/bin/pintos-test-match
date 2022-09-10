@@ -2,6 +2,10 @@
 # Written by Kevin Svetlitski during Spring 2021
 set -o pipefail
 
+# Automatically generate a port
+autoport=$(python -c 'import socket; s=socket.socket(); s.bind(("", 0)); print(s.getsockname()[1]); s.close()')
+export PINTOS_PORT=${PINTOS_PORT:-$autoport}
+
 function fatal() {
 	local RED
 	local CLEAR
