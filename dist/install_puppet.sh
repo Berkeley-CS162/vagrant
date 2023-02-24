@@ -1,1 +1,0 @@
-../install_puppet.sh

@@ -21,7 +21,8 @@ class cs162::shell($home_directory, $owner, $group) {
         "$home_directory/.bin":
             ensure             => directory,
             source             => "puppet:///modules/cs162/shell/bin",
-            source_permissions => use,
+            owner              => $owner,
+            group              => $group,
             recurse            => true;
     }
 

@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Override default cmake with latest
-apt update
-wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | sudo tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null
-apt-add-repository "deb https://apt.kitware.com/ubuntu/ $(lsb_release -cs) main"
+TEMP_DEB=$(mktemp)
+wget -O $TEMP_DEB https://apt.puppet.com/puppet7-release-$(lsb_release -cs).deb
+sudo dpkg -i $TEMP_DEB
+rm $TEMP_DEB
 
 apt update
 # Ensures interaction is disabled
