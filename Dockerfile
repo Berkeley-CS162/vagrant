@@ -5,10 +5,10 @@ RUN echo vagrant:vagrant | chpasswd
 RUN echo "vagrant ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 RUN apt -y update && apt -y install wget
-TEMP_DEB=$(mktemp)
-wget -O $TEMP_DEB https://apt.puppet.com/puppet7-release-jammy.deb
-dpkg -i $TEMP_DEB
-rm $TEMP_DEB
+RUN TEMP_DEB=$(mktemp)
+RUN wget -O $TEMP_DEB https://apt.puppet.com/puppet7-release-jammy.deb
+RUN dpkg -i $TEMP_DEB
+RUN rm $TEMP_DEB
 
 apt update
 # Ensures interaction is disabled
