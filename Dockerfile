@@ -6,16 +6,15 @@ RUN echo "vagrant ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 RUN apt -y update && apt -y install wget
 RUN TEMP_DEB=$(mktemp) && wget -O $TEMP_DEB https://apt.puppet.com/puppet7-release-jammy.deb && dpkg -i $TEMP_DEB && rm $TEMP_DEB
-RUN apt -y update && apt -y install wget
+RUN apt -y update && apt -y install puppet-agent
 
 COPY modules /puppet/modules
 COPY manifests /puppet/manifests
 
-RUN /opt/puppetlabs/bin/puppet apply /puppet/manifests/site.pp --modulepath /puppet/modules
+RUN puppet apply /puppet/manifests/site.pp --modulepath /puppet/modules
 
 # No longer need our puppet files, save about 4.3M
 RUN rm -rf /puppet
-RUN rm -rf /opt/puppetlabs
 # No longer need puppet, save about 49.4 MB
 RUN apt -y purge --auto-remove puppet
 # In case for some reason we have orphans
