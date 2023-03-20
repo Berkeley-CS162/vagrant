@@ -11,10 +11,11 @@ RUN apt -y update && apt -y install wget
 COPY modules /puppet/modules
 COPY manifests /puppet/manifests
 
-RUN puppet apply /puppet/manifests/site.pp --modulepath /puppet/modules
+RUN /opt/puppetlabs/bin/puppet apply /puppet/manifests/site.pp --modulepath /puppet/modules
 
 # No longer need our puppet files, save about 4.3M
 RUN rm -rf /puppet
+RUN rm -rf /opt/puppetlabs
 # No longer need puppet, save about 49.4 MB
 RUN apt -y purge --auto-remove puppet
 # In case for some reason we have orphans
