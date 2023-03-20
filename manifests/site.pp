@@ -72,6 +72,7 @@ node default {
             "libharfbuzz-dev",
             "libfribidi-dev",
             "libxcb1-dev",
+            "file",
         ]:
           ensure => installed;
         [
