@@ -9,11 +9,7 @@ RUN TEMP_DEB=$(mktemp)
 RUN wget -O $TEMP_DEB https://apt.puppet.com/puppet7-release-jammy.deb
 RUN dpkg -i $TEMP_DEB
 RUN rm $TEMP_DEB
-
-apt update
-# Ensures interaction is disabled
-export DEBIAN_FRONTEND=noninteractive
-apt -y install puppet-agent
+RUN apt -y update && apt -y install wget
 
 COPY modules /puppet/modules
 COPY manifests /puppet/manifests
