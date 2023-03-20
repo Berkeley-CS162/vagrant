@@ -11,7 +11,7 @@ RUN apt -y update && apt -y install puppet-agent
 COPY modules /puppet/modules
 COPY manifests /puppet/manifests
 
-RUN puppet apply /puppet/manifests/site.pp --modulepath /puppet/modules
+RUN /opt/puppetlabs/bin/puppet apply /puppet/manifests/site.pp --modulepath /puppet/modules
 
 # No longer need our puppet files, save about 4.3M
 RUN rm -rf /puppet
