@@ -3,8 +3,8 @@ FROM ubuntu:22.04 as src
 RUN useradd --create-home --home-dir /home/vagrant --user-group vagrant
 RUN echo vagrant:vagrant | chpasswd
 RUN echo "vagrant ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-COPY ./install_puppet.sh /home/vagrant/install.sh
-RUN /home/vagrant/install.sh && rm /home/vagrant/install.sh
+COPY ./install_puppet.sh /home/vagrant/install_puppet.sh
+RUN chmod +x /home/vagrant/install_puppet.sh && /home/vagrant/install_puppet.sh && rm /home/vagrant/install_puppet.sh
 
 COPY modules /puppet/modules
 COPY manifests /puppet/manifests
