@@ -133,7 +133,7 @@ document loadusersymbols
 end
 
 define debugpintos
-    target remote localhost:1234
+    python import os, gdb; pintos_port = os.environ["PINTOS_PORT"]; gdb.execute("target remote localhost:{}".format(pintos_port))
 end
 document debugpintos
     Attach debugger to pintos process
