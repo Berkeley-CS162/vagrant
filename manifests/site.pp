@@ -111,6 +111,7 @@ node default {
         "$home/code/group":
             ensure => present,
             source => "https://github.com/Berkeley-CS162/group0.git",
+            branch => "m1-compatibility",
             remote => staff;
         "$home/code/personal":
             ensure => present,
