@@ -11,7 +11,7 @@ node default {
         ]
     }
 
-    $home = "/home/vagrant"
+    $home = "/vagrant"
 
     # Configure apt
 
@@ -76,6 +76,7 @@ node default {
             "libharfbuzz-dev",
             "libfribidi-dev",
             "libxcb1-dev",
+            "fzf",
         ]:
           ensure => installed;
         [
@@ -122,18 +123,11 @@ node default {
     }
     ->
     # Set up some project support stuff
-    class { ["cs162::bochs", "cs162::golang", "cs162::shell", "cs162::rustlang", "cs162::i386-gcc"]:
+    class { ["cs162::golang", "cs162::shell", "cs162::rustlang", "cs162::i386_gcc"]:
         home_directory => $home,
         owner          => vagrant,
         group          => vagrant,
     }
-    ->
-    class { ["cs162::fzf_install"]:
-        home_directory => $home,
-        owner          => vagrant,
-        group          => vagrant,
-    }
-
 
     include cs162::samba
 

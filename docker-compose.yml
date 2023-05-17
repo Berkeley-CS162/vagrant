@@ -1,0 +1,7 @@
+version: "3.9"
+services:
+  vagrant:
+    build: .
+    volumes:
+      - ./home:/home/vagrant
+

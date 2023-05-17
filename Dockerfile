@@ -1,6 +1,6 @@
 FROM ubuntu:22.04 as src
 
-RUN useradd --create-home --home-dir /home/vagrant --user-group vagrant
+RUN useradd --create-home --home-dir /vagrant --user-group vagrant
 RUN echo vagrant:vagrant | chpasswd
 RUN echo "vagrant ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 RUN apt -y update && apt -y install puppet
@@ -22,3 +22,13 @@ RUN echo "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/hom
 FROM ubuntu:22.04
 
 COPY --from=puppet . .
+
+RUN usermod -d /home/vagrant vagrant
+
+WORKDIR /
+
+COPY entrypoint.sh .
+
+USER vagrant
+
+ENTRYPOINT ["/entrypoint.sh"]

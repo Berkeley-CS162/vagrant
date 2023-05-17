@@ -1,7 +1,6 @@
-class cs162::i386-gcc($home_directory, $owner, $group) {
+class cs162::i386_gcc($home_directory, $owner, $group) {
 
     $install_script = "$home_directory/.i386-gcc.install.sh"
-    $install_directory = "$home_directory/i386-gcc/"
 
     Package<| |>
     ->
@@ -18,6 +17,7 @@ class cs162::i386-gcc($home_directory, $owner, $group) {
         user    => $owner,
         command => $install_script,
         creates => "/usr/local/i386elfgcc",
+        timeout => 0,
     }
 
 }
