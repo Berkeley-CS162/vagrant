@@ -8,4 +8,6 @@ if [ -z "$(ls -A $home)" ]; then
 	sudo chown -R vagrant $home
 fi
 
+sudo service ssh start
+
 /bin/bash

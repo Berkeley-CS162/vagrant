@@ -77,6 +77,7 @@ node default {
             "libfribidi-dev",
             "libxcb1-dev",
             "fzf",
+            "openssh-server",
         ]:
           ensure => installed;
         [

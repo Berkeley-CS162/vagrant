@@ -25,6 +25,8 @@ COPY --from=puppet . .
 
 RUN usermod -d /home/vagrant vagrant
 
+RUN usermod -s /bin/bash vagrant
+
 WORKDIR /
 
 COPY entrypoint.sh .
