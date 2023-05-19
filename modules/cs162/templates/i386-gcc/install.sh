@@ -1,8 +1,8 @@
 #!/bin/bash
 
-mkdir /home/vagrant/i386
+mkdir /i386
 
-cd /home/vagrant/i386
+cd /i386
 
 export CC=/bin/gcc
 export LD=/bin/gcc
@@ -17,7 +17,7 @@ cd binutils-build
 sudo make all install 2>&1 | tee make.log
 
 # Building gcc for i386
-cd /home/vagrant/i386
+cd /i386
 wget https://ftp.gnu.org/gnu/gcc/gcc-11.3.0/gcc-11.3.0.tar.gz
 tar xzf gcc-11.3.0.tar.gz
 cd gcc-11.3.0
