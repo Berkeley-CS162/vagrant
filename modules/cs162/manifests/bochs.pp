@@ -18,6 +18,7 @@ class cs162::bochs($home_directory, $owner, $group) {
         user    => $owner,
         command => $install_script,
         creates => "/usr/local/bin/bochs",
+        timeout => 0,
     }
 
 }
