@@ -78,6 +78,7 @@ node default {
             "libxcb1-dev",
             "fzf",
             "openssh-server",
+            "man",
         ]:
           ensure => installed;
         [
@@ -111,7 +112,7 @@ node default {
         "$home/code/group":
             ensure => present,
             source => "https://github.com/Berkeley-CS162/group0.git",
-            branch => "m1-compatibility",
+            branch => "main",
             remote => staff;
         "$home/code/personal":
             ensure => present,
