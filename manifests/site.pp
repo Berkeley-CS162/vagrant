@@ -11,7 +11,7 @@ node default {
         ]
     }
 
-    $home = "/home/vagrant"
+    $home = "/vagrant"
 
     # Configure apt
 
@@ -39,12 +39,15 @@ node default {
             "g++",
             "gcc",
             "gdb",
+            "gdb-multiarch",
             "git",
             "jupyter",
             "libxrandr-dev",
             "libncurses5",
             "libncurses5-dev",
             "qemu",
+            "qemu-system-i386",
+            "texinfo",
             "silversearcher-ag",
             "tmux",
             "vim",
@@ -53,12 +56,13 @@ node default {
             "wget",
             "python3",
             "python3-pip",
+            "python-is-python3",
             "libjson-c-dev",
             "libfuse-dev",
             "sudo",
             "glibc-doc",
-            "libx32gcc-4.8-dev",
-            "libc6-dev-i386",
+            "libx32gcc-10-dev-i386-cross",
+            "libc6-dev-i386-cross",
             "libtiff5-dev",
             "libjpeg8-dev",
             "libopenjp2-7-dev",
@@ -72,6 +76,9 @@ node default {
             "libharfbuzz-dev",
             "libfribidi-dev",
             "libxcb1-dev",
+            "fzf",
+            "openssh-server",
+            "man",
         ]:
           ensure => installed;
         [
@@ -105,6 +112,7 @@ node default {
         "$home/code/group":
             ensure => present,
             source => "https://github.com/Berkeley-CS162/group0.git",
+            branch => "main",
             remote => staff;
         "$home/code/personal":
             ensure => present,
@@ -118,18 +126,11 @@ node default {
     }
     ->
     # Set up some project support stuff
-    class { ["cs162::bochs", "cs162::golang", "cs162::shell", "cs162::rustlang"]:
+    class { ["cs162::bochs", "cs162::golang", "cs162::shell", "cs162::rustlang", "cs162::i386_gcc"]:
         home_directory => $home,
         owner          => vagrant,
         group          => vagrant,
     }
-    ->
-    class { ["cs162::fzf_install"]:
-        home_directory => $home,
-        owner          => vagrant,
-        group          => vagrant,
-    }
-
 
     include cs162::samba
 

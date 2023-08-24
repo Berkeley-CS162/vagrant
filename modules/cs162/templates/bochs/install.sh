@@ -9,7 +9,12 @@ wget -O bochs-${VERSION}.tar.gz "http://downloads.sourceforge.net/project/bochs/
 tar -xvzf bochs-${VERSION}.tar.gz
 pushd bochs-${VERSION}/
 
-./configure --enable-gdb-stub --with-x --with-x11 --with-term --with-nogui
+if [[ $(uname -m) =~ ^arm|^aarch ]]; then
+  ./configure --enable-gdb-stub --with-x --with-x11 --with-term --with-nogui --build=aarch64-unknown-linux-gnu
+else
+  ./configure --enable-gdb-stub --with-x --with-x11 --with-term --with-nogui --build=x86_64-unknown-linux-gnu
+fi
+
 sudo make install
 
 # Clean up

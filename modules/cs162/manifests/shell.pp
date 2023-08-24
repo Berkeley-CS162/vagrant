@@ -24,5 +24,11 @@ class cs162::shell($home_directory, $owner, $group) {
             source_permissions => use,
             recurse            => true;
     }
+    ->
+    exec { "install bin binaries":
+        cwd => "$home_directory/.bin",
+        user => $owner,
+        command => "make",
+    }
 
 }
