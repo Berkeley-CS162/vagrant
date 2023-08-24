@@ -22,3 +22,15 @@ RUN echo "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/hom
 FROM ubuntu:22.04
 
 COPY --from=puppet . .
+
+RUN usermod -d /home/vagrant vagrant
+
+RUN usermod -s /bin/bash vagrant
+
+WORKDIR /
+
+COPY entrypoint.sh .
+
+USER vagrant
+
+ENTRYPOINT ["/entrypoint.sh"]
