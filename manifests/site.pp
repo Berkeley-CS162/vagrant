@@ -79,6 +79,7 @@ node default {
             "fzf",
             "openssh-server",
             "man",
+            "file",
         ]:
           ensure => installed;
         [
