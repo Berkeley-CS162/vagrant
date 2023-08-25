@@ -11,7 +11,7 @@ node default {
         ]
     }
 
-    $home = "/vagrant"
+    $home = "/home/vagrant"
 
     # Configure apt
 
