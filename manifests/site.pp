@@ -11,7 +11,7 @@ node default {
         ]
     }
 
-    $home = "/home/vagrant"
+    $home = "/vagrant"
 
     # Configure apt
 
@@ -80,6 +80,8 @@ node default {
             "openssh-server",
             "man",
             "file",
+            "gcc-i686-linux-gnu",
+            "qemu-user",
         ]:
           ensure => installed;
         [
