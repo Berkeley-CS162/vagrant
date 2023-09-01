@@ -131,15 +131,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-if [[ $(uname -m) =~ ^arm|^aarch ]]; then
-  export CC=/bin/gcc
-  export LD=/bin/gcc
-  export PREFIX="/usr/local/i386elfgcc"
-  export TARGET=i386-elf
-  export PATH="$PREFIX/bin:/home/vagrant/binutils-build/binutils:$PATH"
-fi
-
 . ~/.cs162.bashrc
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-cd ~

@@ -1,0 +1,3 @@
+#!/usr/bin/bash
+
+i686-linux-gnu-gcc -m32 "$@"
