@@ -15,7 +15,7 @@ else
   ./configure --enable-gdb-stub --with-x --with-x11 --with-term --with-nogui --build=x86_64-unknown-linux-gnu
 fi
 
-sudo make install
+make install
 
 # Clean up
 popd
