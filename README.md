@@ -1,3 +1,6 @@
+# DEPRECATED. 
+**PLEASE SEE THE NEW [WORKSPACE](https://github.com/Berkeley-CS162/cs162-workspace) INSTEAD**
+
 Vagrant VM for CS162
 ====================
 
